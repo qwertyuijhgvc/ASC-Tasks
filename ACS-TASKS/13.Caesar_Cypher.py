@@ -1,7 +1,9 @@
-line = input("Enter your line")
+line = input("Enter your line ")
 line = line.lower()
+line = line.replace(" ","")
 letters = [*line]
-caesar = [0] * 100000000000
+print(letters)
+caesar = [0] * 100000000
 coded = ""
 for x in range(0, len(letters)):
    caesar[x] = ord(letters[x]) 
