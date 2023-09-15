@@ -15,7 +15,7 @@ if bowl1[9] + bowl2[9] == 10 and bowl1[9] != 10:
     bowl1[10] = int(input("What did you get in extra Frame 1 "))
 #To calculate extra score given on spares
 for x in range(0,9):
-    if bowl1[x] + bowl2[x] == 10 and bowl1 != 10:
+    if bowl1[x] + bowl2[x] == 10:
         Score += bowl1[x+1]
         if bowl1[x] == 10:
             Score = Score - 10
@@ -32,4 +32,3 @@ for x in range(0,12):
     Score += bowl1[x] + bowl2[x]
 #To print the final score
 print(Score)
-        
