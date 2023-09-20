@@ -29,7 +29,6 @@ for x in range (0,9):
             bowl1[x] = bowl1[x] +bowl2[x+1] 
 #To add up the score
 for x in range(0,12):
-    print(Score)
     Score += bowl1[x] + bowl2[x]
 #To print the final score
 print(Score)
