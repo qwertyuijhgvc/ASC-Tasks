@@ -18,7 +18,7 @@ for x in range(0,9):
     if bowl1[x] + bowl2[x] == 10:
         Score += bowl1[x+1]
         if bowl1[x] == 10:
-            Score = Score - 10
+            Score -= bowl1[x+1]
 #To calculate extra score on strikes
 for x in range (0,9):
     if bowl1[x] == 10:
@@ -29,6 +29,7 @@ for x in range (0,9):
             bowl1[x] = bowl1[x] +bowl2[x+1] 
 #To add up the score
 for x in range(0,12):
+    print(Score)
     Score += bowl1[x] + bowl2[x]
 #To print the final score
 print(Score)
