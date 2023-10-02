@@ -4,7 +4,7 @@ bowl2 = [0] * 100
 Score = 0
 #To get input of number of pins knocked down
 for x in range (0,10):
-    bowl1[x] = int(input("How many pins did you knock down in game " + str(x+1) + " "))
+    bowl1[x] = int(input("How many pins did you knock down in roll " + str(x+1) + " "))
     #Validation of input
     while (bowl1[x] > 10):
         bowl1[x] = int(input("Invalid input! Please input a number between 1 and 10 (inclusive) "))
