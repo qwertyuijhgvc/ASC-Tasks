@@ -6,10 +6,12 @@ pygame.init()
 BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
 GREEN    = (   0, 255,   0)
-RED      = ( 255,   0,   0)
+RED      = ( 153,   0,   0)
 blue    =   0,   205, 255
 YELLOW = (255, 255, 0)
 blue =list(blue)
+BROWN = (102, 51, 0)
+LIGHT_BROWN = (153, 76, 0)
 
 # Loop until the user clicks the close button.
 done = False
@@ -19,8 +21,7 @@ clock = pygame.time.Clock()
 
 size = (700, 500)
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("Professor Craven's Cool Game")
-
+pygame.display.set_caption("Lucas' House Simulator")
 # Loop until the user clicks the close button.
 done = False
  
@@ -49,6 +50,13 @@ while not done:
         blue[2] -= 1
     #Draw here
     pygame.draw.circle(screen, YELLOW, [x_val, y_val], 20)
+    pygame.draw.rect(screen, BROWN, [250,300,200,300])
+    pygame.draw.rect(screen, BLACK, [375,175,50,100])
+    pygame.draw.rect(screen, WHITE, [375,350,50,50])
+    pygame.draw.rect(screen, WHITE, [275,350,50,50])
+    pygame.draw.rect(screen, LIGHT_BROWN, [325,425,50,75])
+    pygame.draw.circle(screen, YELLOW, [360, 475 ], 5)
+    pygame.draw.polygon(screen,RED,[(200,300), (500,300), (350,200)])
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
  
