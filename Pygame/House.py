@@ -41,6 +41,7 @@ while not done:
  
     # --- Game logic should go here
     x_val += 3
+    y_val = 24/6125 * x_val ** 2 + -2.738938776 * x_val + 500
     # --- Drawing code should go here
     # First, clear the screen to white. Don't put other drawing commands
     # above this, or they will be erased with this command.
