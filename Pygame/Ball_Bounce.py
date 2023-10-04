@@ -1,5 +1,5 @@
 import pygame
-
+pygame.init()
 done = False
 
 # Used to manage how fast the screen updates
