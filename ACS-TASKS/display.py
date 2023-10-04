@@ -59,7 +59,7 @@ while not done:
     pygame.draw.polygon(screen,RED,[(200,300), (500,300), (350,200)])
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
- 
+    
     # --- Limit to 60 frames per second
     clock.tick(60)
  #end while
