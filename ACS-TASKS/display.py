@@ -1,5 +1,5 @@
 import pygame
-
+import math
 pygame.init()
 
 # Define some colors
@@ -41,6 +41,7 @@ while not done:
  
     # --- Game logic should go here
     x_val += 3
+    y_val = -math.sin(x_val)
     # --- Drawing code should go here
     # First, clear the screen to white. Don't put other drawing commands
     # above this, or they will be erased with this command.
