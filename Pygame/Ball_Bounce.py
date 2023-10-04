@@ -27,19 +27,19 @@ while not done:
         if event.type == pygame.QUIT: # If user clicked close
             done = True # Flag that we are done so we exit this loop
    # --- Game logic should go here
-        x_val += x_offset
-        y_val += y_offset
-        if (y_val >= 480):
-            y_offset = -1 * y_offset
+    x_val += x_offset
+    y_val += y_offset
+    if (y_val >= 480):
+        y_offset = -1 * y_offset
         #end if
-        if (x_val >= 680 ):
-            x_offset = -1 * x_offset
+    if (x_val >= 680 ):
+        x_offset = -1 * x_offset
         #end if
-        if (y_val <= 20):
-            y_offset = -1 * y_offset
+    if (y_val <= 20):
+        y_offset = -1 * y_offset
         #end if
-        if (x_val <= 20):
-            x_offset = -1 * x_offset
+    if (x_val <= 20):
+        x_offset = -1 * x_offset
     # --- Drawing code should go here
     # First, clear the screen to white. Don't put other drawing commands
     # above this, or they will be erased with this command.
