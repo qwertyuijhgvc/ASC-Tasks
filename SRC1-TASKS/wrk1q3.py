@@ -5,3 +5,4 @@ total = 0
 for x in range (4):
     total = Outlet1Sales[x] + Outlet2Sales[x] + Outlet3Sales[x]
     print("Total for quarter" , x+1, total)
+#next x

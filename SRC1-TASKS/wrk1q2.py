@@ -10,7 +10,10 @@ while not found and index < MAX:
     if(name_array[index] == request and index < MAX):
         print("Student record is in " + str(index + 1))
         found = True 
+    #end if
     index += 1
+#end while
 if index == MAX:
     print("Student record not found")
+#end if
     
