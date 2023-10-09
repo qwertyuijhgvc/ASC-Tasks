@@ -14,7 +14,7 @@ done = False
  
  #colours
 RED      = ( 153,   0,   0)
-blue    =   0,   205, 255
+blue    =  (0,   205, 255)
  
 x_val = 20
 y_val = 20
