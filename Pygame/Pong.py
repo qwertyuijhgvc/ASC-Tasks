@@ -1,7 +1,7 @@
 import pygame
 pygame.init()
 done = False
-
+import random
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
@@ -22,14 +22,14 @@ WHITE = (255, 255 ,255)
 lose = False
 x_val_ball = 350
 y_val_ball = 250
-x_offset = 3
-y_offset = 3
+x_offset = random.choice([4, -4])
+y_offset = random.choice([4, -4])
 p1_lives = 5
 p1_x_val_rect = 600
-p1_y_val_rect = 250
+p1_y_val_rect = 300
 p2_lives = 5
 p2_x_val_rect = 100
-p2_y_val_rect = 250
+p2_y_val_rect = 300
 # Define move value
 move_W = False
 move_S = False
@@ -56,8 +56,8 @@ while not done:
         p1_y_val_rect = 250
         p2_x_val_rect = 100
         p2_y_val_rect = 250
-        x_offset = 3
-        y_offset = 3
+        x_offset = random.choice([4, -4])
+        y_offset = random.choice([4, -4])
         pygame.time.wait(500)
     #end if
     if (y_val_ball <= 0):
@@ -71,46 +71,49 @@ while not done:
         p1_y_val_rect = 250
         p2_x_val_rect = 100
         p2_y_val_rect = 250
-        x_offset = 3
-        y_offset = 3
+        x_offset = random.choice([4, -4])
+        y_offset = random.choice([4, -4])
         pygame.time.wait(500)
     #end if
     #Check to see if keys are pressed
-    if event.type == pygame.KEYDOWN:
-            # Check to see if any of the arrow keys are pressed
-        if event.key == pygame.K_UP:
-                move_up = True
-        elif event.key == pygame.K_DOWN:
-                move_down = True
-        #end if
-        if event.key == pygame.K_LEFT:
-            move_W = True
-        elif event.key == pygame.K_RIGHT:
-            move_S = True
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_UP]:
+        move_up = True
+    if keys[pygame.K_DOWN]:
+        move_down = True
+    if keys[pygame.K_w]:
+        move_W = True
+    if keys[pygame.K_s]:
+        move_S = True
         #end if     
         # Check what happens when a key is released
-    elif event.type == pygame.KEYUP:
-            # Check to see if any of the arrow keys are pressed
-        if event.key == pygame.K_UP:
-            move_up = False
-        elif event.key == pygame.K_DOWN:
-            move_down = False
-        #end if
-        if event.key == pygame.K_LEFT:
-            move_W = False
-        elif event.key == pygame.K_RIGHT:
-            move_S = False
+    if not keys[pygame.K_UP]:
+        move_up = False
+    if not keys[pygame.K_DOWN]:
+        move_down = False
+    if not keys[pygame.K_w]:
+         move_W = False
+    if not keys[pygame.K_s]:
+        move_S = False
         #end if
     #movement
     if move_up and p1_y_val_rect >= 0:
-        p1_y_val_rect -= 3
+        p1_y_val_rect -= 5
     elif move_down and p1_y_val_rect <= 400:
-        p1_y_val_rect += 3
+        p1_y_val_rect += 5
+    if move_up and p1_y_val_rect >= 0 and keys[pygame.K_RSHIFT]:
+        p1_y_val_rect -= 7
+    elif move_down and p1_y_val_rect <= 400 and keys[pygame.K_RSHIFT]:
+        p1_y_val_rect += 7
     #end if
     if move_W and p2_y_val_rect >= 0:
-        p2_y_val_rect -= 3
+        p2_y_val_rect -= 5
     elif move_S and p2_y_val_rect <= 400:
-        p2_y_val_rect += 3
+        p2_y_val_rect += 5
+    if move_W and p2_y_val_rect >= 0 and keys[pygame.K_LSHIFT]:
+        p2_y_val_rect -= 7
+    elif move_S and p2_y_val_rect <= 400 and keys[pygame.K_LSHIFT]:
+        p2_y_val_rect += 7
     #Set variable for the objects
     ball = pygame.Rect([x_val_ball, y_val_ball, 20,20] )
     player2 = pygame.Rect([p2_x_val_rect,p2_y_val_rect, 20, 100])
@@ -119,10 +122,10 @@ while not done:
     collide1 = pygame.Rect.colliderect(player1,ball)
     collide2 = pygame.Rect.colliderect(player2,ball)
     if collide1:
-        x_offset = -1 * x_offset
+        x_offset = -1.1 * x_offset
     #end if
     if collide2:
-        x_offset = -1 * x_offset
+        x_offset = -1.1 * x_offset
     #end if
     # --- Drawing code should go here
     # First, clear the screen to white. Don't put other drawing commands
@@ -130,6 +133,7 @@ while not done:
     screen.fill(BLACK)        
     #Draw here
     draw_text("P1 Lives: " + str(p1_lives), text_font, WHITE, 350, 10 )
+    draw_text("Hold shift for turbo", text_font, WHITE, 150, 400 )
     draw_text("P2 Lives: " + str(p2_lives), text_font, WHITE, 50, 10 )
     if lose:
         done = True
