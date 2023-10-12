@@ -41,13 +41,13 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = 450
     def update(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a]:
+        if keys[pygame.K_a] and self.rect.x > 0:
             self.rect.x -= 2
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] and self.rect.x < 680:
             self.rect.x += 2
 #end Class
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self ):
         super().__init__()
         self.image = pygame.Surface([4,10])
         self.image.fill(WHITE)
@@ -55,21 +55,30 @@ class Bullet(pygame.sprite.Sprite):
     def update(self):
         self.rect.y -= 3
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self,s_x,s_y):
         super().__init__()
-        self.image = pygame.Surface([4,10])
+        self.image = pygame.Surface([10,10])
         self.image.fill(BLUE)
         self.rect = self.image.get_rect()
+        self.rect.x = s_x
+        self.rect.y = s_y
     def update(self):
-        self.rect.x = 5
+        self.rect.x
 
 #Global Variables
 all_sprites_list = pygame.sprite.Group()
-player = Player(5, 5)
+player = Player(20, 20)
+column = [75,150,225,300]
+row = [120,240,360,480,600]
+for i in range (4):
+    for j in range (5):
+        enemy = Enemy(row[j],column[i])
+        all_sprites_list.add(enemy)
 all_sprites_list.add(player)
 keys = pygame.key.get_pressed()
+reload_time = 0
 #Define writing on screen 
-text_font = pygame.font.SysFont("Arial", 50)
+text_font = pygame.font.SysFont("Arial", 10)
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     screen.blit(img,(x,y))
@@ -80,18 +89,21 @@ while not done:
         if event.type == pygame.QUIT: # If user clicked close
             done = True # Flag that we are done so we exit this loop
     # --- Game logic should go here
-    previous_time = pygame.time.get_ticks()
+    if reload_time < 0:
+        loaded = "Loaded"
+    else:
+        loaded = "Reloading"
     all_sprites_list.update()
-    if event.type == pygame.MOUSEBUTTONDOWN:
-            current_time = pygame.time.get_ticks()
+    reload_time -= 1
+    if event.type == pygame.MOUSEBUTTONDOWN and reload_time <= 0:
             # Fire a bullet if the user clicks the mouse button
-            if current_time - previous_time > 500:
-                bullet = Bullet()
+            bullet = Bullet()
             # Set the bullet so it is where the player is
-                bullet.rect.x = player.rect.x
-                bullet.rect.y = player.rect.y
+            bullet.rect.x = player.rect.x + 10 
+            bullet.rect.y = player.rect.y
             # Add the bullet to the lists
-                all_sprites_list.add(bullet)
+            all_sprites_list.add(bullet)
+            reload_time = 30
     # --- Drawing code should go here
     # First, clear the screen to white. Don't put other drawing commands
     # above this, or they will be erased with this command.
@@ -99,6 +111,7 @@ while not done:
 
     #Draw here
     all_sprites_list.draw(screen)
+    draw_text(loaded, text_font, WHITE, 25, 475)
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
     
