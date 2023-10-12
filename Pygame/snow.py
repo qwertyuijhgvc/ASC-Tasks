@@ -38,6 +38,10 @@ class Snow(pygame.sprite.Sprite):
             self.speed = random.randrange(1,10)
         else:
             self.rect.y = self.rect.y + self.speed
+        if self.rect.x < 0:
+            self.rect.x = random.randrange(0,700)
+        else:
+            self.rect.x += random.randrange(-1,2)
 #end class Snow
 
 
