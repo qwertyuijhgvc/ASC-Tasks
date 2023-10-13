@@ -14,6 +14,7 @@ BLUE    =   (0,   0, 255)
 YELLOW = (255, 255, 0)
 BROWN = (102, 51, 0)
 LIGHT_BROWN = (153, 76, 0)
+DORITO_YELLOW = (250,133,19)
 
 # Loop until the user clicks the close button.
 done = False
@@ -50,7 +51,7 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self ):
         super().__init__()
         self.image = pygame.Surface([4,10])
-        self.image.fill(WHITE)
+        self.image.fill(DORITO_YELLOW)
         self.rect = self.image.get_rect()
     def update(self):
         self.rect.y -= 3
@@ -63,7 +64,16 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x = s_x
         self.rect.y = s_y
     def update(self):
-        self.rect.x
+        if enemy_move == 0:
+            self.rect.x += 10
+        elif enemy_move == 60:
+            self.rect.y += 5
+        elif enemy_move == 120:
+            self.rect.x -= 10
+        elif enemy_move == 180:
+            self.rect.y += 5
+        #end if
+        
 
 #Global Variables
 all_sprites_list = pygame.sprite.Group()
@@ -77,6 +87,8 @@ for i in range (4):
 all_sprites_list.add(player)
 keys = pygame.key.get_pressed()
 reload_time = 0
+enemy_move = 0
+lives = 3
 #Define writing on screen 
 text_font = pygame.font.SysFont("Arial", 10)
 def draw_text(text, font, text_col, x, y):
@@ -93,6 +105,11 @@ while not done:
         loaded = "Loaded"
     else:
         loaded = "Reloading"
+    #end if
+    enemy_move += 1
+    if enemy_move > 240:
+        enemy_move = 0
+    #end if
     all_sprites_list.update()
     reload_time -= 1
     if event.type == pygame.MOUSEBUTTONDOWN and reload_time <= 0:
@@ -112,6 +129,7 @@ while not done:
     #Draw here
     all_sprites_list.draw(screen)
     draw_text(loaded, text_font, WHITE, 25, 475)
+    pygame.draw.polygon(screen,DORITO_YELLOW,[(player.rect.x + 4,player.rect.y + 10), (player.rect.x + 13 ,player.rect.y + 3), (player.rect.x + 15,player.rect.y + 13)])
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
     
