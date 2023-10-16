@@ -24,7 +24,7 @@ clock = pygame.time.Clock()
 
 size = (700, 500)
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("I've always hated the color blue")
+pygame.display.set_caption("Dorito Invaders")
 # Loop until the user clicks the close button.
 done = False
  
@@ -64,7 +64,7 @@ class Bullet(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self,s_x,s_y):
         super().__init__()
-        self.image = pygame.Surface([10,10])
+        self.image = pygame.Surface([15,15])
         self.image.fill(BLUE)
         self.rect = self.image.get_rect()
         self.rect.x = s_x
@@ -80,6 +80,7 @@ class Enemy(pygame.sprite.Sprite):
         elif enemy_move == 180:
             self.rect.y += (3 + increase_speed)
         #end if
+        pygame.draw.polygon(screen,DORITO_YELLOW,[(self.rect.x,self.rect.y + 7.5 ), (self.rect.x +10 ,self.rect.y + 2 ), (self.rect.x + 12,self.rect.y + 13)])
     #end update
 #end class
 class Death_Wall(pygame.sprite.Sprite):
@@ -92,6 +93,7 @@ class Death_Wall(pygame.sprite.Sprite):
 #end class
 #Global Variables
 finish = False
+time = 0
 #List of all sprites used
 all_sprites_list = pygame.sprite.Group()
 # List of each enemy in the game
@@ -126,6 +128,7 @@ score = 0
 waves = 1
 increase_speed = 2
 #Define writing on screen 
+intro_font = pygame.font.SysFont("Arial", 20)
 text_font = pygame.font.SysFont("Arial", 10)
 finish_font = pygame.font.SysFont("Arial", 100)
 def draw_text(text, font, text_col, x, y):
@@ -139,8 +142,9 @@ while not done:
         if event.type == pygame.QUIT: # If user clicked close
             done = True # Flag that we are done so we exit this loop
     # --- Game logic should go here
-
-    if reload_time < 0:
+    time += 1
+    #end if
+    if reload_time <= 0:
         loaded = "Loaded"
     else:
         loaded = "Reloading"
@@ -227,17 +231,20 @@ while not done:
         increase_speed += 10
     #end if
     if finish == True:
-        pygame.time.wait(600)
+        pygame.time.wait(1200)
         done = True
     if lives <= 0:
-        draw_text("You Lose!:", finish_font, WHITE, 150, 150)
+        draw_text("You Lose!", finish_font, WHITE, 150, 150)
         finish = True
     #end if
     if score >= 103:
-        draw_text("You Win!:", finish_font, WHITE, 250, 250)
+        draw_text("You Win!", finish_font, WHITE, 150, 150)
         finish = True
     #end if
-    
+    if time < 240:
+        draw_text("As the only survivor of Nacho Chees Doritos", intro_font, WHITE, 175, 200)
+        draw_text("You must defeat all the Cool Ranch Doritos", intro_font, WHITE, 175, 250)
+    #end if
     draw_text("Wave:"+str(waves), text_font, WHITE, 650, 475)
     draw_text("Score:"+str(score), text_font, WHITE, 25, 0)
     draw_text("Lives:"+str(lives), text_font, WHITE, 650, 0)
