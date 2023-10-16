@@ -79,20 +79,34 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.x -= (8 + increase_speed)
         elif enemy_move == 180:
             self.rect.y += (3 + increase_speed)
-            
         #end if
     #end update
 #end class
+class Death_Wall(pygame.sprite.Sprite):
+        def __init__(self):
+            super().__init__()
+            self.image = pygame.Surface([700,30])
+            self.image.fill(BLACK)
+            self.rect = self.image.get_rect()
+        #end contructor function
+#end class
 #Global Variables
+finish = False
 #List of all sprites used
 all_sprites_list = pygame.sprite.Group()
 # List of each enemy in the game
 enemy_list = pygame.sprite.Group()
 # List of each bullet
 bullet_list = pygame.sprite.Group()
+wall_list = pygame.sprite.Group()
 player = Player(20, 20)
 column = [75,150,225,300]
 row = [120,240,360,480,600]
+wall = Death_Wall()
+wall.rect.x = 0
+wall.rect.y = 475
+all_sprites_list.add(wall)
+wall_list.add(wall)
 #Make enmies
 def enemy_spawn():
     for i in range (4):
@@ -113,6 +127,7 @@ waves = 1
 increase_speed = 2
 #Define writing on screen 
 text_font = pygame.font.SysFont("Arial", 10)
+finish_font = pygame.font.SysFont("Arial", 100)
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     screen.blit(img,(x,y))
@@ -124,6 +139,7 @@ while not done:
         if event.type == pygame.QUIT: # If user clicked close
             done = True # Flag that we are done so we exit this loop
     # --- Game logic should go here
+
     if reload_time < 0:
         loaded = "Loaded"
     else:
@@ -161,14 +177,21 @@ while not done:
         if bullet.rect.y < -10:
             bullet_list.remove(bullet)
             all_sprites_list.remove(bullet)
-        
-    for enemy in enemy_list:
-            if enemy.rect.y >= 700:
-                enemy_list.remove(enemy)
-                all_sprites_list.remove(enemy)
-                score += 1
-                lives -= 1
         #end if
+    #next bullet
+    for enemy in enemy_list:
+        enemy_wall_list = pygame.sprite.spritecollide(enemy, wall_list, True)
+        for x in enemy_wall_list:
+            enemy_list.remove(enemy)
+            all_sprites_list.remove(enemy)
+            score += 1
+            lives -= 1
+            wall = Death_Wall()
+            wall.rect.x = 0
+            wall.rect.y = 475
+            all_sprites_list.add(wall)
+            wall_list.add(wall)
+
     #next bullet
     # --- Drawing code should go here
     # First, clear the screen to white. Don't put other drawing commands
@@ -203,16 +226,18 @@ while not done:
         waves += 1   
         increase_speed += 10
     #end if
+    if finish == True:
+        pygame.time.wait(600)
+        done = True
     if lives <= 0:
-        draw_text("You Lose!:", text_font, WHITE, 250, 250)
-        pygame.time.wait(600)
-        done = True
+        draw_text("You Lose!:", finish_font, WHITE, 150, 150)
+        finish = True
     #end if
-    if score == 103:
-        draw_text("You Win!:", text_font, WHITE, 250, 250)
-        pygame.time.wait(600)
-        done = True
+    if score >= 103:
+        draw_text("You Win!:", finish_font, WHITE, 250, 250)
+        finish = True
     #end if
+    
     draw_text("Wave:"+str(waves), text_font, WHITE, 650, 475)
     draw_text("Score:"+str(score), text_font, WHITE, 25, 0)
     draw_text("Lives:"+str(lives), text_font, WHITE, 650, 0)
