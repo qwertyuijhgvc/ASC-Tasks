@@ -73,9 +73,13 @@ class Enemy(pygame.sprite.Sprite):
     def update(self):
         if enemy_move == 0:
             self.rect.x += (8 + increase_speed)
+        elif enemy_move == 30:
+            self.rect.x += ( 8 + increase_speed)
         elif enemy_move == 60:
             self.rect.y += (3 + increase_speed)
         elif enemy_move == 120:
+            self.rect.x -= (8 + increase_speed)
+        elif enemy_move == 150:
             self.rect.x -= (8 + increase_speed)
         elif enemy_move == 180:
             self.rect.y += (3 + increase_speed)
