@@ -95,9 +95,44 @@ class Death_Wall(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
         #end contructor function
 #end class
+class Star(pygame.sprite.Sprite):
+    
+    #Constructor Function
+    def __init__(self, s_width, s_length):
+        super().__init__()
+        #Set star sprite image
+        self.image = pygame.Surface([s_width,s_length])
+        self.image.fill(WHITE)
+        #set speed
+        self.speed = 1
+        #MAke star a rectangle
+        self.rect = self.image.get_rect()
+        #Set x y values
+        self.rect.x = random.randrange(0,700)
+        self.rect.y = random.randrange(0,400)
+    # end of contruction function
+    def update(self):
+        #To make star spawn back at top of screen when it hits bottom
+        if self.rect.y > 500 :
+            self.rect.y = -50
+            self.speed = 1
+        else:
+            #To make star move down
+            self.rect.y = self.rect.y + self.speed
+
+    #end update
+#end class star
 #Global Variables
 finish = False
 time = 0
+#Set group for star
+star_group = pygame.sprite.Group()
+#Determine amount of stars
+number_of_stars = 10
+#Adds stars to group
+for i in range (number_of_stars):
+    star = Star(2,2)
+    star_group.add(star)
 #List of all sprites used
 all_sprites_list = pygame.sprite.Group()
 # List of each enemy in the game
@@ -147,6 +182,7 @@ while not done:
             done = True # Flag that we are done so we exit this loop
     # --- Game logic should go here
     time += 1
+    star_group.update()
     #end if
     if reload_time <= 0:
         loaded = "Loaded"
@@ -207,6 +243,7 @@ while not done:
     screen.fill(BLACK)
 
     #Draw here
+    star_group.draw(screen)
     all_sprites_list.draw(screen)
     draw_text(loaded, text_font, WHITE, 25, 475)
     pygame.draw.polygon(screen,DORITO_YELLOW,[(player.rect.x + 4,player.rect.y + 10), (player.rect.x + 13 ,player.rect.y + 3), (player.rect.x + 15,player.rect.y + 13)])
