@@ -124,6 +124,7 @@ class Star(pygame.sprite.Sprite):
 mixer.init()
 #Plays musci from GB/GBC version of space invaders earth level
 pygame.mixer.music.load('Pygame/Earth.mp3')
+pygame.mixer.music.set_volume(0.2)
 #Loops music play
 pygame.mixer.music.play(-1)
 #Global Variables
@@ -226,6 +227,7 @@ while not done:
             bullet_list.remove(bullet)
             all_sprites_list.remove(bullet)
             score += 1
+            pygame.mixer.Channel(0).play(pygame.mixer.Sound('Pygame/Dorito_Defeated.mp3'), maxtime=600)
         #next enemy
         # Remove the bullet if it flies up off the screen
         if bullet.rect.y < -10:
