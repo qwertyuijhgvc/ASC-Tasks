@@ -18,19 +18,16 @@ DORITO_YELLOW = (250,133,19)
 
 # Loop until the user clicks the close button.
 done = False
-
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
-
+#Sets screen
 size = (700, 500)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Dorito Invaders")
 # Loop until the user clicks the close button.
 done = False
- 
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
-
 #Classes
 class Player(pygame.sprite.Sprite):
     def __init__(self, s_width, s_length):
@@ -58,6 +55,7 @@ class Bullet(pygame.sprite.Sprite):
     #end contructor function
     def update(self):
         self.rect.y -= 3
+        #Draws traingle on top of the bullet to make it look like a dorito
         pygame.draw.polygon(screen,DORITO_YELLOW,[(self.rect.x,self.rect.y + 10), (self.rect.x + 10 ,self.rect.y + 10), (self.rect.x + 5,self.rect.y )])
     #end update
 #end class
@@ -119,14 +117,15 @@ class Star(pygame.sprite.Sprite):
         else:
             #To make star move down
             self.rect.y = self.rect.y + self.speed
-
+        #end if
     #end update
 #end class star
 #initialize music
 mixer.init()
+#Plays musci from GB/GBC version of space invaders earth level
 pygame.mixer.music.load('Pygame/Earth.mp3')
+#Loops music play
 pygame.mixer.music.play(-1)
-
 #Global Variables
 finish = False
 time = 0
@@ -146,8 +145,10 @@ enemy_list = pygame.sprite.Group()
 bullet_list = pygame.sprite.Group()
 wall_list = pygame.sprite.Group()
 player = Player(20, 20)
+#Positions for enemies to spawn
 column = [75,150,225,300]
 row = [120,240,360,480,600]
+#Creates death wall for enemies to collide with so player can lose lives
 wall = Death_Wall()
 wall.rect.x = 0
 wall.rect.y = 475
@@ -163,11 +164,11 @@ def enemy_spawn():
     #next j
 #next i
 #end enemy_spawn
+#Adds player to sprites
 all_sprites_list.add(player)
-keys = pygame.key.get_pressed()
 reload_time = 0
 enemy_move = 0
-lives = 100000000
+lives = 3
 score = 0
 waves = 1
 increase_speed = 2
@@ -186,9 +187,12 @@ while not done:
         if event.type == pygame.QUIT: # If user clicked close
             done = True # Flag that we are done so we exit this loop
     # --- Game logic should go here
+    #Increments time variable so intro text disappears after a certian amount of time
     time += 1
+    #updates position of stars
     star_group.update()
     #end if
+    #Lets player know if they can fire
     if reload_time <= 0:
         loaded = "Loaded"
     else:
@@ -199,6 +203,7 @@ while not done:
         enemy_move = 0
     #end if
     reload_time -= 1
+    #Code for shooting
     if event.type == pygame.MOUSEBUTTONDOWN and reload_time <= 0:
             # Fire a bullet if the user clicks the mouse button
             bullet = Bullet()
@@ -228,19 +233,25 @@ while not done:
             all_sprites_list.remove(bullet)
         #end if
     #next bullet
+    #Check if enemy has hit death wall
     for enemy in enemy_list:
+        #makes a list of enemy sprites colliding
         enemy_wall_list = pygame.sprite.spritecollide(enemy, wall_list, True)
         for x in enemy_wall_list:
+            #despawns enemy
             enemy_list.remove(enemy)
-            all_sprites_list.remove(enemy)
+            all_sprites_list.remove
+            (enemy)
             score += 1
             lives -= 1
+            #Remakes death wall because it kept disappearing when enemies collided with it
             wall = Death_Wall()
             wall.rect.x = 0
             wall.rect.y = 475
             all_sprites_list.add(wall)
             wall_list.add(wall)
-
+        #next x
+    #next enemy
     #next bullet
     # --- Drawing code should go here
     # First, clear the screen to white. Don't put other drawing commands
@@ -248,11 +259,15 @@ while not done:
     screen.fill(BLACK)
 
     #Draw here
+    #stars
     star_group.draw(screen)
     all_sprites_list.draw(screen)
     draw_text(loaded, text_font, WHITE, 25, 475)
+    #Player sprite dorito
     pygame.draw.polygon(screen,DORITO_YELLOW,[(player.rect.x + 4,player.rect.y + 10), (player.rect.x + 13 ,player.rect.y + 3), (player.rect.x + 15,player.rect.y + 13)])
+    #update position of all sprites
     all_sprites_list.update()
+    #Spawns new wave of enemy when one wave is defeated and makes them move faster
     if score == 20:
         enemy_spawn()
         waves += 1
@@ -276,29 +291,33 @@ while not done:
         waves += 1   
         increase_speed += 10
     #end if
+    #check if game is finished
     if finish == True:
         pygame.time.wait(1200)
         done = True
+    #check if player lost
     if lives <= 0:
         draw_text("You Lose!", finish_font, WHITE, 150, 150)
         finish = True
     #end if
+    #check if player won
     if score >= 103:
         draw_text("You Win!", finish_font, WHITE, 150, 150)
         finish = True
     #end if
+    #intro text
     if time < 240:
         draw_text("As the only survivor of Nacho Chees Doritos", intro_font, WHITE, 175, 200)
         draw_text("You must defeat all the Cool Ranch Doritos", intro_font, WHITE, 175, 250)
     #end if
+    #Information for player
     draw_text("Wave:"+str(waves), text_font, WHITE, 650, 475)
     draw_text("Score:"+str(score), text_font, WHITE, 25, 0)
     draw_text("Lives:"+str(lives), text_font, WHITE, 650, 0)
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
-    
     # --- Limit to 60 frames per second
     clock.tick(60)
  #end while
-
+#ends program
 pygame.quit()
