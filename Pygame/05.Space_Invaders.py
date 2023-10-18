@@ -1,8 +1,8 @@
 import pygame
 import random
 import pygame
-import math
-
+from pygame.locals import *
+from pygame import mixer
 pygame.init()
 
 # Define some colors
@@ -122,6 +122,11 @@ class Star(pygame.sprite.Sprite):
 
     #end update
 #end class star
+#initialize music
+mixer.init()
+pygame.mixer.music.load('Pygame/Earth.mp3')
+pygame.mixer.music.play(-1)
+
 #Global Variables
 finish = False
 time = 0
@@ -162,7 +167,7 @@ all_sprites_list.add(player)
 keys = pygame.key.get_pressed()
 reload_time = 0
 enemy_move = 0
-lives = 3
+lives = 100000000
 score = 0
 waves = 1
 increase_speed = 2
