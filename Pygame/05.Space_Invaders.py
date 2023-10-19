@@ -15,7 +15,6 @@ YELLOW = (255, 255, 0)
 BROWN = (102, 51, 0)
 LIGHT_BROWN = (153, 76, 0)
 DORITO_YELLOW = (250,133,19)
-
 # Loop until the user clicks the close button.
 done = False
 # Used to manage how fast the screen updates
@@ -120,7 +119,7 @@ class Star(pygame.sprite.Sprite):
         #end if
     #end update
 #end class star
-#Plays musci from GB/GBC version of space invaders earth level
+#Plays music from GB/GBC version of space invaders earth level
 pygame.mixer.music.load('Pygame/05.Earth.mp3')
 pygame.mixer.music.set_volume(0.2)
 #Loops music play
@@ -225,6 +224,7 @@ while not done:
             bullet_list.remove(bullet)
             all_sprites_list.remove(bullet)
             score += 1
+            #Plays crunch sound effect when enemy is defeated
             pygame.mixer.Channel(0).play(pygame.mixer.Sound('Pygame/05.Dorito_Defeated.mp3'), maxtime=600)
         #next enemy
         # Remove the bullet if it flies up off the screen
