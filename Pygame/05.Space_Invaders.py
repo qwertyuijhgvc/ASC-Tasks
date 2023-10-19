@@ -4,7 +4,7 @@ import pygame
 from pygame.locals import *
 from pygame import mixer
 pygame.init()
-
+mixer.init()
 # Define some colors
 BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
@@ -120,10 +120,8 @@ class Star(pygame.sprite.Sprite):
         #end if
     #end update
 #end class star
-#initialize music
-mixer.init()
 #Plays musci from GB/GBC version of space invaders earth level
-pygame.mixer.music.load('Pygame/Earth.mp3')
+pygame.mixer.music.load('Pygame/05.Earth.mp3')
 pygame.mixer.music.set_volume(0.2)
 #Loops music play
 pygame.mixer.music.play(-1)
@@ -227,7 +225,7 @@ while not done:
             bullet_list.remove(bullet)
             all_sprites_list.remove(bullet)
             score += 1
-            pygame.mixer.Channel(0).play(pygame.mixer.Sound('Pygame/Dorito_Defeated.mp3'), maxtime=600)
+            pygame.mixer.Channel(0).play(pygame.mixer.Sound('Pygame/05.Dorito_Defeated.mp3'), maxtime=600)
         #next enemy
         # Remove the bullet if it flies up off the screen
         if bullet.rect.y < -10:
