@@ -38,6 +38,8 @@ def dequeue():
         q1_fp = (q1_fp + 1) % MAX_SIZE
         q1_size -= 1
         return q1[item_p]
+    else:
+        print("queue empty")
     #end if
 #end function
         
