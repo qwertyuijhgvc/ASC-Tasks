@@ -306,9 +306,10 @@ while not done:
         finish = True
     #end if
     #intro text
-    if time < 240:
+    if time < 10:
         draw_text("As the only survivor of Nacho Chees Doritos", intro_font, WHITE, 175, 200)
         draw_text("You must defeat all the Cool Ranch Doritos", intro_font, WHITE, 175, 250)
+        pygame.time.wait(100)
     #end if
     #Information for player
     draw_text("Wave:"+str(waves), text_font, WHITE, 650, 475)
