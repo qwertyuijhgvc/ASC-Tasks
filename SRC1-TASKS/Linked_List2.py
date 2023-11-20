@@ -54,6 +54,29 @@ def AddItem(newName, myList):
                 next_free = myList[next_free].pointer
                 myList[temp].pointer = myList[p].pointer
                 myList[p].pointer = temp
+                
+                
+def RemoveItem(name_to_remove, myList):
+    global start_pointer
+    global next_free
+    if start_pointer == -1:
+        print("Error: List is empty")
+        return
+    p = start_pointer
+    prev = None
+    while p != -1 and myList[p].name != name_to_remove:
+        prev = p
+        p = myList[p].pointer
+    if p == -1:
+        print(f"Error: Item '{name_to_remove}' not found")
+        return
+    if prev is None:
+        start_pointer = myList[p].pointer
+    else:
+        prev_pointer = myList[prev].pointer
+        myList[prev].pointer = myList[p].pointer
+    myList[p].pointer = next_free
+    next_free = p
 
 AddItem("Colin", myList)
 AddItem("Albert", myList)
