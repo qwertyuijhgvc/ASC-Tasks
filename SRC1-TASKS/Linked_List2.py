@@ -7,14 +7,14 @@ class Node:
         return "Data:"+self.name+",Ptr:"+str(self.pointer)
 #end Node record
 # Create array of blank Nodes (records)
-myList = [Node("",-1) for _ in range(50) ]
-for index in range(49):
+myList = [Node("",-1) for _ in range(6) ]
+for index in range(6):
     myList[index].pointer = index + 1
 #next index
-myList[49].pointer = -1
+myList[5].pointer = -1
 start = -1
 nextfree = 0
-print(myList)
+
 
 def outputList(arr):
     global start_pointer
@@ -59,7 +59,6 @@ def AddItem(newName,myList):
             #endif
        #endif
     #endprocedure
-
 AddItem("Colin",myList)
 AddItem("Albert",myList)
 print(myList)
