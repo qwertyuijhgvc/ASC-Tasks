@@ -1,6 +1,5 @@
 import pygame
 import random
-import pygame
 from pygame.locals import *
 from pygame import mixer
 pygame.init()
@@ -240,8 +239,7 @@ while not done:
         for x in enemy_wall_list:
             #despawns enemy
             enemy_list.remove(enemy)
-            all_sprites_list.remove
-            (enemy)
+            all_sprites_list.remove(enemy)
             score += 1
             lives -= 1
             #Remakes death wall because it kept disappearing when enemies collided with it
