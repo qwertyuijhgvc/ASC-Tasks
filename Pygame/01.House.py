@@ -64,7 +64,7 @@ while not done:
     #Door
     pygame.draw.rect(screen, LIGHT_BROWN, [325,425,50,75])
     #Door knob
-    pygame.draw.circle(screen, YELLOW, [360, 475 ], 5)
+    pygame.draw.circle(screen, YELLOW, [360, 475], 5)
     #Roof
     pygame.draw.polygon(screen,RED,[(200,300), (500,300), (350,200)])
     # --- Go ahead and update the screen with what we've drawn.

@@ -19,6 +19,7 @@ class PAC_MAN(pygame.sprite.Sprite):
         self.x = 350
         self.y = 450
         self.radius = s_radius
+        direction = "E"
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
