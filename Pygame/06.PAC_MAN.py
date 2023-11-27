@@ -38,16 +38,11 @@ class Block(pygame.sprite.Sprite):
         super().__init__()
         self.width = 20
         self.height = 20
-    def drawGrid():
-     for x in range(0, 700, 20):
-        for y in range(0, 500, 20):
-            rect = pygame.Rect(x, y, 20, 20)
-            pygame.draw.rect(screen, WHITE, rect, 1)
-
 
 #Variables
 done = False
 all_sprites_list = pygame.sprite.Group()
+wall_hit_list = pygame.sprite.Group()
 player = PAC_MAN(20,20,20)    
 all_sprites_list.add(player)
     
@@ -65,7 +60,6 @@ while not done:
             
     #Drawing objects on screen       
     screen.fill(BLACK)  
-    Block.drawGrid()
     all_sprites_list.update()  
     pygame.display.flip()     
 pygame.quit
