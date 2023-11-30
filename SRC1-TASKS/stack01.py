@@ -29,6 +29,12 @@ class Stack:
             return self.data[self.sp + 1]
         #end if
     #end function
+    def peek(self):
+        if self.isEmpty:
+            print("Stack is empty")
+        else:
+            return self.data[self.sp]
+    #end function
 #end class
 reverseString = ""
 myString = input ("Please enter a word or phrase to be tested: ")
