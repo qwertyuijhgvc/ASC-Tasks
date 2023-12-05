@@ -32,12 +32,16 @@ class pac_man(pygame.sprite.Sprite):
         elif keys[pygame.K_s]:
                 self.direction = "S"
         if self.direction == "W":
+                self.rect.x -= 1
                 self.x -= 1
         elif self.direction == "N":
+                self.rect.y -= 1
                 self.y -= 1
         elif self.direction == "E":
+                self.rect.x += 1
                 self.x += 1
         elif self.direction == "S":
+                self.rect.y += 1
                 self.y += 1
         pygame.draw.circle(screen, YELLOW, (self.x // 2, self.y // 2), self.radius)
     #end procedure
