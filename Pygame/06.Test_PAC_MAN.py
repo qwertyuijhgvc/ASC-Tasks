@@ -76,7 +76,7 @@ class Block(pygame.sprite.Sprite):
 done = False
 all_sprites_list = pygame.sprite.Group() # New group for all sprites
 wall_sprites = pygame.sprite.Group()  #Group for walls
-player = pac_man(40, 40) #The player
+player = pac_man(80, 80) #The player
 #add player into sprite gorup
 all_sprites_list.add(player)
 #Create walls
@@ -101,7 +101,7 @@ while not done:
     all_sprites_list.update()
     all_sprites_list.draw(screen)
     #Draws pacman character on top of player hitbox/hurtbox
-    pygame.draw.circle(screen, YELLOW, (player.get_x(), player.get_y()),20)
+    pygame.draw.circle(screen, YELLOW, (player.get_x() -20, player.get_y()+20),20)
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
