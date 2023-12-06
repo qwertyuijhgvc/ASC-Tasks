@@ -21,6 +21,8 @@ class pac_man(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 350
         self.rect.y = 450
+        self.prevx = 0
+        self.prevy= 0
         self.direction = "E"
 
     def update(self):
@@ -34,14 +36,27 @@ class pac_man(pygame.sprite.Sprite):
         elif keys[pygame.K_s]:
             self.direction = "S"
         if self.direction == "W":
+            self.prevx = self.rect.x
             self.rect.x -= 3
         elif self.direction == "N":
+            self.prevy = self.rect.y
             self.rect.y -= 3
         elif self.direction == "E":
+            self.prevx = self.rect.x
             self.rect.x += 3
         elif self.direction == "S":
+            self.prevy = self.rect.y
             self.rect.y += 3
-
+        
+    def go_back(self):
+        self.rect.x = self.prevx
+        self.rect.y = self.prevy
+        
+    def get_x(self):
+        return self.rect.x
+    
+    def get_y(self):
+        return self.rect.y
 
 
 class Block(pygame.sprite.Sprite):
@@ -77,13 +92,13 @@ while not done:
     # Check for collisions
     collisions = pygame.sprite.spritecollide(player, wall_sprites, False)
     if collisions:
-        player.direction = "STOP"
+       player.go_back()
 
     # Drawing objects on screen
     screen.fill(BLACK)
     all_sprites_list.update()
     all_sprites_list.draw(screen)
-    pygame.draw.circle(screen, YELLOW, (player.rect.x, player.rect.y),20)
+    pygame.draw.circle(screen, YELLOW, (player.get_x(), player.get_y()),20)
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
