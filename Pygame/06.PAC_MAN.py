@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 pygame.init()
 BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
@@ -9,6 +10,7 @@ YELLOW = (255, 255, 0)
 BROWN = (102, 51, 0)
 #Creating Classes
 #Creating PACMAN class
+clock = pygame.time.Clock()
 size = (700, 500)
 screen = pygame.display.set_mode(size)
 class pac_man(pygame.sprite.Sprite):
@@ -32,17 +34,17 @@ class pac_man(pygame.sprite.Sprite):
         elif keys[pygame.K_s]:
                 self.direction = "S"
         if self.direction == "W":
-                self.rect.x -= 1
-                self.x -= 1
+                self.rect.x -= 3
+                self.x -= 3
         elif self.direction == "N":
-                self.rect.y -= 1
-                self.y -= 1
+                self.rect.y -= 3
+                self.y -= 3
         elif self.direction == "E":
-                self.rect.x += 1
-                self.x += 1
+                self.rect.x += 3
+                self.x += 3
         elif self.direction == "S":
-                self.rect.y += 1
-                self.y += 1
+                self.rect.y += 3
+                self.y += 3
         pygame.draw.circle(screen, YELLOW, (self.x // 2, self.y // 2), self.radius)
     #end procedure
 #end class
@@ -65,7 +67,7 @@ player_list.add(player)
 all_sprites_list.add(player)
 wall_list = pygame.sprite.Group()   
 for _ in range(35):
-    wall_segment = Block(20*_,0)
+    wall_segment = Block(20*_,200)
     wall_list.add(wall_segment)
 all_sprites_list.add(wall_list)
 
@@ -76,6 +78,10 @@ while not done:
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
             done = True # Flag that we are done so we exit this loop
+        collisions = pygame.sprite.spritecollide(player, wall_list, False)
+        if collisions:
+                player.direction = "stop"
+
 
             
             
@@ -83,5 +89,6 @@ while not done:
     screen.fill(BLACK)  
     wall_list.draw(screen)
     all_sprites_list.update() 
-    pygame.display.flip()     
+    pygame.display.flip()   
+    clock.tick(60)  
 pygame.quit
