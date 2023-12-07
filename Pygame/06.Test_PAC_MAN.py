@@ -6,7 +6,7 @@ pygame.init()
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
-
+BLUE = (0,   0, 255)
 #set clock and screen
 clock = pygame.time.Clock()
 size = (700, 500)
@@ -25,6 +25,7 @@ class pac_man(pygame.sprite.Sprite):
         self.prevx = 0
         self.prevy= 0
         self.direction = "E"
+        self.lives = 3
     #end constructor
     #update procedure to mkae pacman move
     def update(self):
@@ -69,6 +70,10 @@ class pac_man(pygame.sprite.Sprite):
     def get_y(self):
         return self.rect.y
     #end function
+    #To make pacman take damage
+    def take_damage(self):
+        self.lives -= 1
+    #end procedure
 #class for individual blocks in the wall
 class Block(pygame.sprite.Sprite):
     def __init__(self, x_cord, y_cord):
