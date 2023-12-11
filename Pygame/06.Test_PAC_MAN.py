@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from pygame.sprite import _Group
 #initialize pygame
 pygame.init()
 #set colours
@@ -74,6 +75,8 @@ class pac_man(pygame.sprite.Sprite):
     def take_damage(self):
         self.lives -= 1
     #end procedure
+#end class
+
 #class for individual blocks in the wall
 class Block(pygame.sprite.Sprite):
     def __init__(self, x_cord, y_cord):
@@ -84,6 +87,44 @@ class Block(pygame.sprite.Sprite):
         self.rect.x = x_cord
         self.rect.y = y_cord
     #end constructor
+#end class
+
+#class for the ghost enemies
+class Ghost(pygame.sprite.Sprite):
+    def __init__(self,):
+        super().__init__()
+        self.image = pygame.Surface([40, 40])
+        self.image.fill(BLACK)
+        self.rect = self.image.get_rect()
+        self.rect.x = 0
+        self.rect.y = 0
+    #end constructor
+#end class
+#Classes for each ghost
+class Pinky(Ghost):
+    def __init__(self,):
+        super().__init__() 
+        self.image.fill(BLACK)
+        
+        
+class Blinky(Ghost):
+    def __init__(self):
+        super().__init__()  
+        self.image.fill(BLACK)
+        
+        
+class Inky(Ghost):
+    def __init__(self,):
+        super().__init__()  
+        self.image.fill(BLACK)
+        
+        
+class Clyde(Ghost):
+    def __init__(self,):
+        super().__init__()
+        self.image.fill(BLACK)
+
+
 
 # Variables
 done = False
