@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-from pygame.sprite import _Group
 #initialize pygame
 pygame.init()
 #set colours
@@ -8,6 +7,9 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
 BLUE = (0,   0, 255)
+PINK = (255,51,255)
+ORANGE = (255,128,0)
+RED = (255,0,0)
 #set clock and screen
 clock = pygame.time.Clock()
 size = (700, 500)
@@ -104,26 +106,31 @@ class Ghost(pygame.sprite.Sprite):
 class Pinky(Ghost):
     def __init__(self,):
         super().__init__() 
-        self.image.fill(BLACK)
-        
+        self.image.fill(PINK)
+        self.rect.x = 100
+        self.rect.y = 100
         
 class Blinky(Ghost):
     def __init__(self):
         super().__init__()  
-        self.image.fill(BLACK)
-        
+        self.image.fill(BLUE)
+        self.rect.x = 600
+        self.rect.y = 100
         
 class Inky(Ghost):
     def __init__(self,):
         super().__init__()  
-        self.image.fill(BLACK)
+        self.image.fill(RED)
+        self.rect.x = 100
+        self.rect.y = 400
         
         
 class Clyde(Ghost):
     def __init__(self,):
         super().__init__()
-        self.image.fill(BLACK)
-
+        self.image.fill(ORANGE)
+        self.rect.x = 600
+        self.rect.y = 400
 
 
 # Variables
@@ -138,7 +145,15 @@ for _ in range(35):
     wall_segment = Block(20 * _, 200)
     wall_sprites.add(wall_segment)
 all_sprites_list.add(wall_sprites)
-
+#Create ghosts
+clyde = Clyde()
+pinky = Pinky()
+inky = Inky()
+blinky = Blinky()
+all_sprites_list.add(clyde)
+all_sprites_list.add(pinky)
+all_sprites_list.add(inky)
+all_sprites_list.add(blinky)
 #Main game loop
 while not done:
     for event in pygame.event.get():
