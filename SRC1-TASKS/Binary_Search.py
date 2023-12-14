@@ -15,7 +15,7 @@ def binarySearch(aList, itemSought):
             elif aList[midpoint] > itemSought:
                 last = midpoint
                 midpoint = (first+last) // 2
-            #end i
+            #end if
         #end if
     #end while
     return index
