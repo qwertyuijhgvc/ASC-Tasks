@@ -1,4 +1,4 @@
-msg = "to be or not to be that is the question"
+msg = "Agklq ldhum qom ndem, Gembqgax c 4-hmqqmk vdke. Hddp mumkxvomkm. Ycxim gq'l umkx diugdsl"
 msg = msg.upper()
 alphabet = ["A","B","C","D","E","F","H","I","J","K","L","M","N","O","P","Q","R","X","T","U","V","W","X","Y","Z"]
 for x in range (len(alphabet)):
