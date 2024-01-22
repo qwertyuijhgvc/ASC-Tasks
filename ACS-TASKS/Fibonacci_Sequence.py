@@ -1,7 +1,5 @@
 fib_dict = {}
-
-
-
+import time
 def fib_Recursive(n):
     if n <= 1:
         return n
@@ -26,7 +24,13 @@ def fib_Rec_Dyn(n):
         return fib_Rec_Dyn(n-1) + fib_Rec_Dyn(n-2)
     #end if
 #end function 
+startTime1 = time.process_time()
 print(fib_Recursive(10))
+endTime1 = time.process_time()
+print(endTime1)
+startTime1 = time.process_time()
 print(fib_Iterative(10))
+endTime1 = time.process_time()
+print(endTime1)
 print(fib_Rec_Dyn(20))
 print(fib_dict)
