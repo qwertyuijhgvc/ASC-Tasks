@@ -25,12 +25,11 @@ def fib_Rec_Dyn(n):
     #end if
 #end function 
 startTime1 = time.process_time()
-print(fib_Recursive(10))
+print(fib_Recursive(40))
 endTime1 = time.process_time()
-print(endTime1)
+print(endTime1 - startTime1)
 startTime1 = time.process_time()
-print(fib_Iterative(10))
+print(fib_Iterative(40))
 endTime1 = time.process_time()
-print(endTime1)
-print(fib_Rec_Dyn(20))
-print(fib_dict)
+print(endTime1 - startTime1)
+
