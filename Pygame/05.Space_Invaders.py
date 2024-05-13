@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
     #end update
 #end Class
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self ):
+    def __init__(self):
         super().__init__()
         self.image = pygame.Surface([10,10])
         self.image.fill(BLACK)
