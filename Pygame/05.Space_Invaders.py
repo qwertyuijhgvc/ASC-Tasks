@@ -29,6 +29,7 @@ clock = pygame.time.Clock()
 #Classes
 class Player(pygame.sprite.Sprite):
     def __init__(self, s_width, s_length):
+        pygame.sprite.Sprite.__init__(self)
         super().__init__()
         self.image = pygame.Surface([s_width,s_length])
         self.image.fill(RED)
