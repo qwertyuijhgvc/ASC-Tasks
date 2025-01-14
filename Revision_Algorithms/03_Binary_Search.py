@@ -4,8 +4,13 @@ def binarySearch(array, item):
         if array[index] > item:
             index = int(index/2)
         elif array[index] < item:
-            index = 1
+            index = int((index+(len(array)-1))/2)
         #end if
     #end while
     return index
 #end function
+def binarySearch(array, item, high, low):
+    if low > high:
+        return False
+    #end if
+    
